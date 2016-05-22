@@ -13,17 +13,19 @@ class ExamsController < ApplicationController
    end
 
    def exam_params
-      params.require(:exams).permit(:activity, :patient, :srate, :date)
+      params.require(:exam).permit(:activity, :patient, :srate, :date)
    end
 
    def create
       @exam = Exam.new(exam_params)
 
 
-
       if @exam.save
 
-         @exam.import_samples("DANE.txt")
+         params[:exam][:attachment].each do |attachment|
+            filepath = attachment.tempfile.path            
+            @exam.import_samples(filepath)
+         end
          redirect_to :action => 'list'
 
       else

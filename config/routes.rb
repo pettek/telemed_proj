@@ -1,4 +1,15 @@
 Rails.application.routes.draw do
+  resources :post_attachments
+  resources :post_attachments
+  resources :posts
+  get 'resumes/index'
+
+  get 'resumes/new'
+
+  get 'resumes/create'
+
+  get 'resumes/destroy'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

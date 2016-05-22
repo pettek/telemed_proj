@@ -1,20 +1,19 @@
 <h1>Add new exam</h1>
 
-<%= form_tag :action => 'create' do %>
+ <%= form_for @exam, html: { multipart: true }, url: {action: "create"} do |f| %>
+ 	  <%= f.label :activity %>
+ 	  <%= f.text_field :activity %>
+ 	  <%= f.label :patient %>
+ 	  <%= f.text_field :patient %>
+ 	  <%= f.label :srate %>
+ 	  <%= f.text_field :srate %>
+ 	  <%= f.label :date %>
+ 	  <%= f.text_field :date %>
+      <%= f.label :attachment %>
+      <%= f.file_field :attachment, multiple: true %>
+      <%= f.submit "Save", class: "btn btn-primary" %>
+   <% end %>
 
-<p><label for = "activity">Activity</label>:
-<%= text_field 'exams', 'activity' %></p>
-
-<p><label for = "patient">Patient</label>:
-<%= text_field 'exams', 'patient' %></p>
-
-<p><label for = "srate">Sampling Rate</label>:
-<%= text_field 'exams', 'srate' %></p>
-
-<p><label for = "date">Date</label><br/>
-<%= text_area 'exams', 'date' %></p>
-
-<%= submit_tag "Create" %>
-
-<% end -%>
 <%= link_to 'Back', {:action => 'list'} %>
+
+ 
