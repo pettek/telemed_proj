@@ -1,4 +1,4 @@
-class ExamController < ApplicationController
+class ExamsController < ApplicationController
 
 	def list
       @exams = Exam.all
