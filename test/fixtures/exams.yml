@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ID: 1
+  activity: 1
+  patient: MyString
+  srate: 1.5
+  date: 2016-05-22 16:07:05
+  created: 2016-05-22 16:07:05
+
+two:
+  ID: 1
+  activity: 1
+  patient: MyString
+  srate: 1.5
+  date: 2016-05-22 16:07:05
+  created: 2016-05-22 16:07:05

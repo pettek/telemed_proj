@@ -1,0 +1,20 @@
+<h1>Add new exam</h1>
+
+<%= form_tag :action => 'create' do %>
+
+<p><label for = "activity">Activity</label>:
+<%= text_field 'exams', 'activity' %></p>
+
+<p><label for = "patient">Price</label>:
+<%= text_field 'exams', 'patient' %></p>
+
+<p><label for = "srate">Sampling Rate</label>:
+<%= text_field 'exams', 'srate' %></p>
+
+<p><label for = "date">Date</label><br/>
+<%= text_area 'exams', 'date' %></p>
+
+<%= submit_tag "Create" %>
+
+<% end -%>
+<%= link_to 'Back', {:action => 'list'} %>
