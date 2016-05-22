@@ -4,6 +4,15 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'application#hello'
+  get 'exam/list'
+  get 'exam/new'
+  post 'exam/create'
+  patch 'exam/update'
+  get 'exam/list'
+  get 'exam/show'
+  get 'exam/edit'
+  get 'exam/delete'
+  get 'exam/update'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
