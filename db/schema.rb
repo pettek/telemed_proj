@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160522140705) do
+ActiveRecord::Schema.define(version: 20160522155505) do
 
   create_table "exams", force: :cascade do |t|
     t.integer  "activity"
@@ -22,5 +22,17 @@ ActiveRecord::Schema.define(version: 20160522140705) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "samples", force: :cascade do |t|
+    t.integer  "time"
+    t.integer  "ax"
+    t.integer  "ay"
+    t.integer  "az"
+    t.integer  "exam_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "samples", ["exam_id"], name: "index_samples_on_exam_id"
 
 end

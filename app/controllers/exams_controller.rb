@@ -19,8 +19,13 @@ class ExamsController < ApplicationController
    def create
       @exam = Exam.new(exam_params)
 
+
+
       if @exam.save
+
+         @exam.import_samples("DANE.txt")
          redirect_to :action => 'list'
+
       else
          render :action => 'new'
       end
