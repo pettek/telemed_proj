@@ -23,6 +23,13 @@
 
 <%= line_chart dataX, library: {
     # google charts options
+    enableInteractivity: false,
+    curveType: 'none',
+    pointSize: 0,
+    title: 'Dane z akcelerometru - oś X',
+    hAxis: {title: 'Czas [us]'},
+    vAxis: {title: 'Przyspieszenie [a.u.]'},
+    colors: ['purple'],
 } %>
 
 <%= link_to 'Back', {:action => 'list'} %>
