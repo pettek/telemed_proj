@@ -52,7 +52,11 @@ class ExamsController < ApplicationController
    end
    
    def delete
-      Exam.find(params[:id]).destroy
+      if params[:deleteRecord].present?
+         params[:deleteRecord].each do |id|
+            Exam.find(id).destroy
+         end
+      end
       redirect_to :action => 'list'
    end
 end
