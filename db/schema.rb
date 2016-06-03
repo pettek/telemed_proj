@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160522181156) do
+ActiveRecord::Schema.define(version: 20160522155505) do
 
   create_table "exams", force: :cascade do |t|
     t.integer  "activity"
@@ -19,26 +19,6 @@ ActiveRecord::Schema.define(version: 20160522181156) do
     t.float    "srate"
     t.datetime "date"
     t.datetime "created"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "post_attachments", force: :cascade do |t|
-    t.integer  "post_id"
-    t.string   "multiread"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "posts", force: :cascade do |t|
-    t.string   "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "resumes", force: :cascade do |t|
-    t.string   "name"
-    t.string   "attachment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

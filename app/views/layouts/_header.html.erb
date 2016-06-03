@@ -1,0 +1,14 @@
+<header class="navbar navbar-fixed-top navbar-inverse">
+      <div class="container">
+        <%= link_to "TELEmed.app", root_path, id: "logo" %>
+        <nav>
+          <ul class="nav navbar-nav navbar-right">
+            <li><%= link_to "Domowa",   root_path %></li>
+            <li><%= link_to "Pomoc",   help_path %></li>
+            <li><%= link_to "Dodaj badanie", add_new_path %></li>
+            <li><%= link_to "Lista badań", show_all_path %></li>
+            <li><%= link_to "Wizualizacja danych", '#' %></li>
+          </ul>
+        </nav>
+      </div>
+    </header>

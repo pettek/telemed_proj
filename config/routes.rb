@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+
+  #NAMED ROUTES
+  root             'static_pages#home'
+  get 'help'    => 'static_pages#help'
+  get 'about'   => 'static_pages#about'
+  get 'contact' => 'static_pages#contact'
+  get 'show_all' => 'exams#list'
+  get 'add_new'  => 'exams#new'
+
   resources :post_attachments
   resources :post_attachments
   resources :posts
@@ -14,12 +23,10 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'application#hello'
-  get 'exams/list'
-  get 'exams/new'
+  
+ 
   post 'exams/create'
   patch 'exams/update'
-  get 'exams/list'
   get 'exams/show'
   get 'exams/edit'
   get 'exams/delete'
