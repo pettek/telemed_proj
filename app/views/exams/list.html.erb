@@ -1,18 +1,45 @@
-<% if @exams.blank? %>
-<p>There are not any exams currently in the system.</p>
-<% else %>
-<p>These are the current exams in our system</p>
+<h1>Przegląd badań</h1>
 
-<ul id = "exams">
-   <% @exams.each do |c| %>
-   <li>
-   <%= link_to c.patient, {:action => 'show', :id => c.id} -%>
-   <b> <%= link_to 'Edit', {:action => 'edit', :id => c.id} %></b>
-   <b> <%= link_to "Delete", {:action => 'delete', :id => c.id},
-      :confirm => "Are you siur?" %></b>
-</li>
-   <% end %>
-</ul>
+<% if @exams.blank? %>
+    <p>W bazie danych nie ma żadnego rekordu.</p>
+    <p><%= link_to "Dodaj nowe badanie", {:action => 'new' }%></p>
+
+<% else %>
+    <p>Opcje wyszukiwania:<br>not yet implemented</p><br>
+
+    <%= form_tag(action: "delete") do %>
+
+      <table class="table table-hover" id="exams">
+
+        <thead>
+          <tr>
+            <th></th>
+            <th>ID pacjenta</th>
+            <th>ID badania</th>
+            <th>Data badania</th>
+            <th>Data wysłania pliku</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+         <% @exams.each do |c| %>
+            <tr>
+              <td><%= check_box_tag "deleteRecord[]", c.id%></td>
+              <td><%= c.patient %></td>
+              <td><%= c.activity %></td>
+              <td><%= c.date %></td>
+              <td><%= c.created %></td>
+              <td><%= link_to "Wyświetl badanie", {:action => 'show', :id => c.id} %></td>
+            </tr>
+         <% end %>
+
+         </tbody>
+
+      </table>
+
+      <%= submit_tag "Usuń zaznaczone" %>
+    <% end %>
 
 <% end %>
-<p><%= link_to "Add new Exam", {:action => 'new' }%></p>

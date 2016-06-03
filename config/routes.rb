@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   patch 'exams/update'
   get 'exams/show'
   get 'exams/edit'
-  get 'exams/delete'
+  post 'exams/delete'
   get 'exams/update'
 
   # Example of regular route:
