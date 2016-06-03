@@ -8,4 +8,21 @@
 
 <hr />
 
+<%
+  dataX = []
+  dataY = []
+  dataZ = []
+
+  @exam.samples.each do |sample|
+    dataX.push([sample.time,sample.ax])
+    dataY.push([sample.time,sample.ay])
+    dataZ.push([sample.time,sample.az])
+  end
+
+%>
+
+<%= line_chart dataX, library: {
+    # google charts options
+} %>
+
 <%= link_to 'Back', {:action => 'list'} %>
