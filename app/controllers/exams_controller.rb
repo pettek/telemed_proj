@@ -1,6 +1,6 @@
 class ExamsController < ApplicationController
-
-	def list
+   
+   def list
       @exams = Exam.where(filter_params)
    end
 
