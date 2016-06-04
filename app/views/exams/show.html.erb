@@ -14,22 +14,24 @@
   dataZ = []
 
   @exam.samples.each do |sample|
-    dataX.push([sample.time,sample.ax])
-    dataY.push([sample.time,sample.ay])
-    dataZ.push([sample.time,sample.az])
+    time = 0.001 * sample.time;
+    dataX.push([time, sample.ax])
+    dataY.push([time, sample.ay])
+    dataZ.push([time, sample.az])
   end
 
 %>
 
-<%= line_chart dataX, library: {
+<%= line_chart dataX, discrete: true, library: {
     # google charts options
     enableInteractivity: false,
     curveType: 'none',
     pointSize: 0,
     title: 'Dane z akcelerometru - oś X',
-    hAxis: {title: 'Czas [us]'},
+    hAxis: {title: 'Czas [s]'},
     vAxis: {title: 'Przyspieszenie [a.u.]'},
     colors: ['purple'],
+    
 } %>
 
 <%= link_to 'Back', {:action => 'list'} %>

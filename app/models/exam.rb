@@ -1,5 +1,5 @@
 class Exam < ActiveRecord::Base
-	has_many :samples
+	has_many :samples, dependent: :destroy
 
 	def import_samples(filename)
     f = File.open(filename)

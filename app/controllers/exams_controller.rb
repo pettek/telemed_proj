@@ -18,7 +18,7 @@ class ExamsController < ApplicationController
 
    def create
       @exam = Exam.new(exam_params)
-
+      start_time = Time.now
 
       if @exam.save
 
@@ -26,6 +26,8 @@ class ExamsController < ApplicationController
             filepath = attachment.tempfile.path            
             @exam.import_samples(filepath)
          end
+         end_time = Time.now
+         flash[:success] = "Czas zapisu w sekundach: " + (end_time - start_time).to_s
          redirect_to :action => 'list'
 
       else
