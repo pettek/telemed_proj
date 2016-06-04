@@ -5,6 +5,9 @@ class StaticPagesController < ApplicationController
   def help
   end
 
+  def autorzy
+  end
+
   def contact
   end
 end
