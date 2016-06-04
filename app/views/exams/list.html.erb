@@ -1,11 +1,31 @@
 <h1>Przegląd badań</h1>
 
+<%= form_tag('/show_all', method: 'get') do %>
+      <%= fields_for :filter do  |ff| %>
+
+        <%= ff.label :patient, "ID Pacjenta " %>
+        <%= ff.text_field :patient %>
+
+        <%= ff.label :activity, "Badanie " %>
+        <%= ff.text_field :activity %>
+
+        <%= ff.label :first_name, "Imię" %>
+        <%= ff.text_field :first_name %>
+
+        <%= ff.label :last_name, "Nazwisko " %>
+        <%= ff.text_field :last_name %>
+
+      <% end %>
+      <%= submit_tag "Filtruj", class: "btn btn-primary" %>
+    <%end%> 
+<br><br>
 <% if @exams.blank? %>
     <p>W bazie danych nie ma żadnego rekordu.</p>
     <p><%= link_to "Dodaj nowe badanie", {:action => 'new' }%></p>
 
 <% else %>
-    <p>Opcje wyszukiwania:<br>not yet implemented</p><br>
+   
+    
 
     <%= form_tag(action: "delete") do %>
 
