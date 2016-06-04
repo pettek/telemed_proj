@@ -25,11 +25,12 @@ class ExamsController < ApplicationController
          params[:exam][:attachment].each do |attachment|
             filepath = attachment.tempfile.path            
             @exam.import_samples(filepath)
+            @exam = Exam.create
          end
          end_time = Time.now
          flash[:success] = "Czas zapisu w sekundach: " + (end_time - start_time).to_s
          redirect_to :action => 'list'
-
+         Exam.last.destroy
       else
          render :action => 'new'
       end
@@ -40,7 +41,7 @@ class ExamsController < ApplicationController
    end
    
    def exam_param
-      params.require(:exam).permit(:activity, :patient, :srate, :date)
+      params.require(:exam).permit(:activity, :patient, :first_name, :last_name)
    end
    
    def update

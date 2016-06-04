@@ -2,10 +2,10 @@
 
 <%= form_for @exam, :url =>{:action => "update", :id =>@exam} do |f| %>
 
-<p>Activity: <%= f.text_field 'activity' %></p>
 <p>Patient: <%= f.text_field  'patient' %></p>
-<p>Srate: <%= f.text_field  'srate' %></p>
-<p>Date: <%= f.text_field  'date' %></p>
+<p>Activity: <%= f.text_field 'activity' %></p>
+<p>First Name: <%= f.text_field  'first_name' %></p>
+<p>Last Name: <%= f.text_field  'last_name' %></p>
 
 <%= f.submit "Save changes" %>
 <% end %>

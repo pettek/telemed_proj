@@ -9,29 +9,180 @@
 <hr />
 
 <%
-  dataX = []
-  dataY = []
-  dataZ = []
+  chartData = Array.new
+
 
   @exam.samples.each do |sample|
-    time = 0.001 * sample.time;
-    dataX.push([time, sample.ax])
-    dataY.push([time, sample.ay])
-    dataZ.push([time, sample.az])
+    chartData.push([sample.time, sample.ax, sample.ay, sample.az])
   end
-
 %>
 
-<%= line_chart dataX, discrete: true, library: {
-    # google charts options
-    enableInteractivity: false,
-    curveType: 'none',
-    pointSize: 0,
-    title: 'Dane z akcelerometru - oś X',
-    hAxis: {title: 'Czas [s]'},
-    vAxis: {title: 'Przyspieszenie [a.u.]'},
-    colors: ['purple'],
-    
-} %>
+<div class="row chart-row">
+  <div class="col-xs-8" id="chart_div">
+  </div>
+
+  <div class="container-fluid">
+    <div class="col-sm-3 buttons-div">
+      <button type="button" class="btn btn-col btn-block btn-chart">Oś X</button>
+      <button type="button" class="btn btn-col btn-block btn-chart">Oś Y</button>
+      <button type="button" class="btn btn-col btn-block btn-chart">Oś Z</button>
+      <br>
+      <ul><h4>Obsługa wykresu:</h4>
+        <li><b>scroll</b> w obszarze wykresu powoduje przyblizenie fragmentu przebiegu
+        <li>trzymajac <b>lewy przycisk myszy</b> mozna przesuwac widoczny fragment wykresu
+        <li>po nacisnieciu <b>prawego przysisku myszy</b> nastepuje powrot do pierwotnego widoku
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  var chartData = new Array();
+  var btnChooseChartArray = document.getElementsByClassName("btn-chart");
+
+  var chartDataArray = <%= chartData %>;
+
+  google.charts.load('current', {'packages':['corechart']});
+
+  google.charts.setOnLoadCallback(function(){
+    chartData = prepareChartData(chartDataArray);
+    drawChart(0);
+  });
+
+  function prepareChartData(dataArray){
+    var dataX = new google.visualization.DataTable();
+    var dataY = new google.visualization.DataTable();
+    var dataZ = new google.visualization.DataTable();
+
+    var numRows = dataArray.length;
+
+    dataX.addColumn('number', 'Czas');
+    dataX.addColumn('number', 'Przyspieszenie na osi X');
+
+    for (var i = 0; i < numRows; i++){
+      dataX.addRow([dataArray[i][0],dataArray[i][1]]);
+    }
+
+    dataY.addColumn('number', 'Czas');
+    dataY.addColumn('number', 'Przyspieszenie na osi Y');
+
+    for (var i = 0; i < numRows; i++){
+      dataY.addRow([dataArray[i][0],dataArray[i][2]]);
+    }
+
+    dataZ.addColumn('number', 'Czas');
+    dataZ.addColumn('number', 'Przyspieszenie na osi Z');
+
+    for (var i = 0; i < numRows; i++){
+      dataZ.addRow([dataArray[i][0],dataArray[i][3]]);
+    }
+
+    var data = [dataX, dataY, dataZ];
+
+    return data;
+  }
+
+  function drawChart(currentPlot) {
+
+    switch(currentPlot){
+      default:
+        currentPlot = 0;
+        var emptyData = new google.visualization.DataTable();
+        emptyData.addColumn('number', 'Time');
+        emptyData.addColumn('number', 'X-Axis Acceleration');
+        var options = {
+          title: 'Dane z akcelerometru - oś X',
+          hAxis: {title: 'Czas [ms]'},
+          vAxis: {title: 'Przyspieszenie [a.u.]'},
+          legend: 'none',
+          colors: ['purple'],
+          backgroundColor: 'transparent',
+          explorer: {
+            axis: 'horizontal',
+            keepInBounds: true,
+            maxZoomIn: 10.0,
+            zoomDelta: 1.3
+          },
+          series: {
+            0: { enableInteractivity: false } // turn off tooltips
+          },
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(emptyData, options);
+
+        return null;
+
+      case 1:
+        var options = {
+          title: 'Dane z akcelerometru - oś X',
+          hAxis: {title: 'Czas [ms]'},
+          vAxis: {title: 'Przyspieszenie [a.u.]'},
+          legend: 'none',
+          colors: ['purple'],
+          backgroundColor: 'transparent',
+          explorer: {
+            axis: 'horizontal',
+            keepInBounds: true,
+            maxZoomIn: 10.0,
+            zoomDelta: 1.3
+          },
+          series: {
+            0: { enableInteractivity: false } // turn off tooltips
+          },
+        };
+        break;
+
+      case 2:
+        var options = {
+          title: 'Dane z akcelerometru - oś Y',
+          hAxis: {title: 'Czas [ms]'},
+          vAxis: {title: 'Przyspieszenie [a.u.]'},
+          legend: 'none',
+          colors: ['green'],
+          backgroundColor: 'transparent',
+          explorer: {
+            axis: 'horizontal',
+            keepInBounds: true,
+            maxZoomIn: 10.0,
+            zoomDelta: 1.3
+          },
+          series: {
+            0: { enableInteractivity: false } // turn off tooltips
+          },
+        };
+        break;
+
+      case 3:
+        var options = {
+          title: 'Dane z akcelerometru - oś Z',
+          hAxis: {title: 'Czas [ms]'},
+          vAxis: {title: 'Przyspieszenie [a.u.]'},
+          legend: 'none',
+          colors: ['blue'],
+          backgroundColor: 'transparent',
+          explorer: {
+            axis: 'horizontal',
+            keepInBounds: true,
+            maxZoomIn: 10.0,
+            zoomDelta: 1.3
+          },
+          series: {
+            0: { enableInteractivity: false } // turn off tooltips
+          },
+        };
+        break;
+    }
+
+    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+    chart.draw(chartData[currentPlot-1], options);
+  }
+
+  btnChooseChartArray[0].onclick = function(){drawChart(1);}
+  btnChooseChartArray[1].onclick = function(){drawChart(2);}
+  btnChooseChartArray[2].onclick = function(){drawChart(3);}
+
+</script>
 
 <%= link_to 'Back', {:action => 'list'} %>
