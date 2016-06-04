@@ -1,7 +1,12 @@
 class ExamsController < ApplicationController
+   
+   def list
+      @exams = Exam.where(filter_params)
+   end
 
-	def list
-      @exams = Exam.all
+   def filter_params
+      params[:filter] ||= {}
+      params[:filter].permit(:activity, :first_name, :patient, :last_name).reject { |k, v| v.empty? }
    end
 
    def show
