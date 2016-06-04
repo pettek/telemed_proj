@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'contact' => 'static_pages#contact'
   get 'show_all' => 'exams#list'
   get 'add_new'  => 'exams#new'
+  get 'autorzy' => 'static_pages#autorzy'
 
   resources :post_attachments
   resources :post_attachments

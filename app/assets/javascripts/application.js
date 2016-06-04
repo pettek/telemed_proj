@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require bootstrap-sprockets
 //= require_tree .
 
 $(function() {
@@ -25,5 +26,5 @@ $(function() {
             return $(".alert").fadeOut();
         };
     })(this));
-    return setTimeout(flashCallback, 2000);
+    return setTimeout(flashCallback, 5000);
 });
