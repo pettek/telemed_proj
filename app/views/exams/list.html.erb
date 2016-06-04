@@ -33,7 +33,8 @@
               <td><%= c.first_name %></td>
               <td><%= c.last_name %></td>
               <td><%= c.created_at %></td>
-              <td><%= link_to "Wyświetl badanie", {:action => 'show', :id => c.id} %></td>
+              <td><%= link_to "Wyświetl", {:action => 'show', :id => c.id} %></td>
+              <td><%= link_to "Edytuj", {:action => 'edit', :id => c.id} %></td>
             </tr>
          <% end %>
 

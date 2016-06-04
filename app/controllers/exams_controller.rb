@@ -41,7 +41,7 @@ class ExamsController < ApplicationController
    end
    
    def exam_param
-      params.require(:exam).permit(:activity, :patient, :srate, :date)
+      params.require(:exam).permit(:activity, :patient, :first_name, :last_name)
    end
    
    def update
