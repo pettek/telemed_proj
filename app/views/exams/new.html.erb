@@ -1,19 +1,19 @@
-<h1>Add new exam</h1>
+<div class="container">
+  <h1>Dodaj badanie</h1>
+  <div class="row row-content">
+    <%= form_for @exam, html: { multipart: true }, url: {action: "create"} do |f| %>
+        <div class="col-xs-12 col-sm-12 col-md-3">
+            <div class="form container-fluid">
+                <label><%= f.label :attachment %></label>
+                <p><%= f.file_field :attachment, multiple: true %></p>
+                <p><%= f.submit "Zapisz", class: "btn btn-col btn-block btn-steel-blue" %></p>
+                <p style="margin-left: 0px; margin-top: 20px;"><%= link_to 'Back', {:action => 'list'} %></p>  
+            </div>
+        </div>
+    <% end %>    
+  </div>
+</div>
 
- <%= form_for @exam, html: { multipart: true }, url: {action: "create"} do |f| %>
- 	  <%= f.label :activity %>
- 	  <%= f.text_field :activity %>
- 	  <%= f.label :patient %>
- 	  <%= f.text_field :patient %>
- 	  <%= f.label :srate %>
- 	  <%= f.text_field :srate %>
- 	  <%= f.label :date %>
- 	  <%= f.text_field :date %>
-      <%= f.label :attachment %>
-      <%= f.file_field :attachment, multiple: true %>
-      <%= f.submit "Save", class: "btn btn-primary" %>
-   <% end %>
 
-<%= link_to 'Back', {:action => 'list'} %>
 
  
