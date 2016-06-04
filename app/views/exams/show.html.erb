@@ -14,10 +14,9 @@
   dataZ = []
 
   @exam.samples.each do |sample|
-    time = 0.001 * sample.time;
-    dataX.push([time, sample.ax])
-    dataY.push([time, sample.ay])
-    dataZ.push([time, sample.az])
+    dataX.push([sample.time, sample.ax])
+    dataY.push([sample.time, sample.ay])
+    dataZ.push([sample.time, sample.az])
   end
 
 %>
@@ -28,7 +27,7 @@
     curveType: 'none',
     pointSize: 0,
     title: 'Dane z akcelerometru - oś X',
-    hAxis: {title: 'Czas [s]'},
+    hAxis: {title: 'Czas [ms]'},
     vAxis: {title: 'Przyspieszenie [a.u.]'},
     colors: ['purple'],
     

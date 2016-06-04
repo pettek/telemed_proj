@@ -6,6 +6,8 @@ class Exam < ActiveRecord::Base
     header = f.readline.gsub!(/[^0-9A-Za-z,]/, '').split(",")
     self.patient = header[0]
     self.activity = header[1]
+    self.first_name = header[2]
+    self.last_name = header[3]
 
     f.readline
     

@@ -16,7 +16,8 @@
             <th></th>
             <th>ID pacjenta</th>
             <th>ID badania</th>
-            <th>Data badania</th>
+            <th>Imię</th>
+            <th>Nazwisko</th>
             <th>Data wysłania pliku</th>
             <th></th>
           </tr>
@@ -29,8 +30,9 @@
               <td><%= check_box_tag "deleteRecord[]", c.id%></td>
               <td><%= c.patient %></td>
               <td><%= c.activity %></td>
-              <td><%= c.date %></td>
-              <td><%= c.created %></td>
+              <td><%= c.first_name %></td>
+              <td><%= c.last_name %></td>
+              <td><%= c.created_at %></td>
               <td><%= link_to "Wyświetl badanie", {:action => 'show', :id => c.id} %></td>
             </tr>
          <% end %>
