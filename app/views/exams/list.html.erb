@@ -26,7 +26,7 @@
 <% else %>
    
     
-
+    <%= button_tag "Zaznacz wszystkie", class: "btn btn-default check" %>
     <%= form_tag(action: "delete") do %>
 
       <table class="table table-hover" id="exams">
@@ -62,7 +62,8 @@
 
       </table>
 
-      <%= submit_tag "Usuń zaznaczone" %>
+      <%= submit_tag "Usuń zaznaczone", class: "btn btn-danger", data: { confirm: "Operacja jest nieodwracalna. Kontynuować?" } %>
     <% end %>
+
 
 <% end %>

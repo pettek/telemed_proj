@@ -16,6 +16,16 @@
 //= require bootstrap-sprockets
 //= require_tree .
 
+$(function(){
+    $('.check:button').click(function(){
+          var checked = !$(this).data('checked');
+          $('input:checkbox').prop('checked', checked);
+          $(this).html(checked ? 'Odznacz wszystkie' : 'Zaznacz wszystkie' )
+          $(this).data('checked', checked);
+    });
+})
+
+
 $(function() {
     var flashCallback;
     flashCallback = function() {
@@ -28,3 +38,4 @@ $(function() {
     })(this));
     return setTimeout(flashCallback, 5000);
 });
+

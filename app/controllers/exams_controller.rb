@@ -60,11 +60,14 @@ class ExamsController < ApplicationController
    end
    
    def delete
+      start_time = Time.now
       if params[:deleteRecord].present?
          params[:deleteRecord].each do |id|
             Exam.find(id).destroy
          end
       end
+      end_time = Time.now
+      flash[:success] = "Czas usunięcia w sekundach: " + (end_time - start_time).to_s
       redirect_to :action => 'list'
    end
 end
