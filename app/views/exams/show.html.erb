@@ -11,7 +11,6 @@
 <%
   chartData = Array.new
 
-
   @exam.samples.each do |sample|
     chartData.push([sample.time, sample.ax, sample.ay, sample.az])
   end
@@ -23,14 +22,14 @@
 
   <div class="container-fluid">
     <div class="col-sm-3 buttons-div">
-      <button type="button" class="btn btn-col btn-block btn-chart">Oś X</button>
-      <button type="button" class="btn btn-col btn-block btn-chart">Oś Y</button>
-      <button type="button" class="btn btn-col btn-block btn-chart">Oś Z</button>
+      <button type="button" class="btn btn-col btn-block btn-chart btn-steel-blue">Oś X</button>
+      <button type="button" class="btn btn-col btn-block btn-chart btn-steel-blue">Oś Y</button>
+      <button type="button" class="btn btn-col btn-block btn-chart btn-steel-blue">Oś Z</button>
       <br>
       <ul><h4>Obsługa wykresu:</h4>
-        <li><b>scroll</b> w obszarze wykresu powoduje przyblizenie fragmentu przebiegu
-        <li>trzymajac <b>lewy przycisk myszy</b> mozna przesuwac widoczny fragment wykresu
-        <li>po nacisnieciu <b>prawego przysisku myszy</b> nastepuje powrot do pierwotnego widoku
+        <li><b>scroll</b> w obszarze wykresu powoduje przybliżenie fragmentu przebiegu
+        <li>trzymając <b>lewy przycisk myszy</b> można przesuwać widoczny fragment wykresu
+        <li>po naciśnięciu <b>prawego przysisku myszy</b> następuje powrót do pierwotnego widoku
       </ul>
     </div>
   </div>
@@ -39,15 +38,20 @@
 <script>
 
   var chartData = new Array();
+  var chartDataArray = new Array();
+
   var btnChooseChartArray = document.getElementsByClassName("btn-chart");
 
-  var chartDataArray = <%= chartData %>;
-
-  google.charts.load('current', {'packages':['corechart']});
-
+  try {
+    google.charts.load('current', {'packages': ['corechart']});
+  }
+  catch(err){
+    // catch "google.charts.load can only by loaded once"
+  }
   google.charts.setOnLoadCallback(function(){
+    chartDataArray = <%= chartData %>;
     chartData = prepareChartData(chartDataArray);
-    drawChart(0);
+    drawChart(1);
   });
 
   function prepareChartData(dataArray){
