@@ -55,6 +55,7 @@
               <td><%= c.created_at %></td>
               <td><%= link_to "Wyświetl", {:action => 'show', :id => c.id} %></td>
               <td><%= link_to "Edytuj", {:action => 'edit', :id => c.id} %></td>
+              <td><%= link_to "Pobierz", exams_csv_export_path(format: "csv", :id => c.id) %></td>
             </tr>
          <% end %>
 

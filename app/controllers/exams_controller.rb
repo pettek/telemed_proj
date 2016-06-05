@@ -1,5 +1,6 @@
 class ExamsController < ApplicationController
    
+
    def list
       @exams = Exam.where(filter_params)
    end
@@ -70,4 +71,15 @@ class ExamsController < ApplicationController
       flash[:success] = "Czas usunięcia w sekundach: " + (end_time - start_time).to_s
       redirect_to :action => 'list'
    end
+
+   require 'csv'
+
+   def csv_export
+      @out = Exam.find(params[:id])
+
+       respond_to do |format|
+         format.html
+         format.csv { send_data @out.to_csv, filename: "examout-#{Date.today}.csv" }
+       end
+    end
 end

@@ -26,5 +26,15 @@ class Exam < ActiveRecord::Base
     save!
   end
 
+  def to_csv
+    CSV.generate(headers: true) do |csv|
+      samples.each do |sample|
+        csv << [sample.time, sample.ax, sample.ay, sample.az]
+      end
+    end
+  end
+
+
+
 end
 

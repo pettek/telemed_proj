@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   get 'exams/edit'
   post 'exams/delete'
   get 'exams/update'
+  get 'exams/csv_export'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
