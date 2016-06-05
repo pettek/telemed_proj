@@ -1,6 +1,5 @@
 class Exam < ActiveRecord::Base
 	has_many :samples, dependent: :destroy
-
 	def import_samples(filename)
     f = File.open(filename)
     header = f.readline.gsub!(/[^0-9A-Za-z,]/, '').split(",")
