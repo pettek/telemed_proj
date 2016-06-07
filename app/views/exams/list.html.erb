@@ -1,3 +1,5 @@
+<% provide(:title, 'Baza badań') %>
+
 <h1>Przegląd badań</h1>
 <div class="well well-sm">
 <%= form_tag('/show_all', method: 'get', class: 'form-inline') do %>
@@ -39,6 +41,7 @@
             <th>Imię</th>
             <th>Nazwisko</th>
             <th>Data wysłania pliku</th>
+            <th>Ilość próbek</th>
             <th></th>
           </tr>
         </thead>
@@ -53,11 +56,14 @@
               <td><%= c.first_name %></td>
               <td><%= c.last_name %></td>
               <td><%= c.created_at %></td>
+              <td><%= Sample.where("exam_id ="+c.id.to_s).count %></td>
               <td><%= link_to "Wyświetl", {:action => 'show', :id => c.id} %></td>
               <td><%= link_to "Edytuj", {:action => 'edit', :id => c.id} %></td>
               <td><%= link_to "Pobierz", exams_csv_export_path(format: "csv", :id => c.id) %></td>
             </tr>
          <% end %>
+            <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td></td><td></td><td></td><td></td><td></td><td>Ilość próbek w bazie</td><td><%= Sample.count %></td><td></td><td></td><td></td></tr>
 
          </tbody>
 
