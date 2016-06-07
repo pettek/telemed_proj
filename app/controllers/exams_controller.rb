@@ -64,7 +64,9 @@ class ExamsController < ApplicationController
       start_time = Time.now
       if params[:deleteRecord].present?
          params[:deleteRecord].each do |id|
-            Exam.find(id).destroy
+            exam = Exam.find(id)
+            exam.samples.delete_all
+            exam.destroy
          end
       end
       end_time = Time.now
