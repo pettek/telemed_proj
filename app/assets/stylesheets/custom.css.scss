@@ -54,6 +54,11 @@ h2 {
   color: #777;
 }
 
+h3{
+  text-align: center;
+  color: #777;
+}
+
 p {
   font-size: 1.1em;
   line-height: 1.7em;
@@ -72,6 +77,20 @@ p {
 #logo:hover {
   color: #fff;
   text-decoration: none;
+}
+
+.home > .row > .col-md-8, .home > .row > .col-md-4{
+  box-sizing: border-box;
+  margin-top: 50px;
+}
+
+.home div > .well.text-center{
+  margin: 0px;
+  padding: 0px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  margin-top: 25px;
+  margin-bottom: 25px;
 }
 
 footer {
