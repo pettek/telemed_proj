@@ -11,10 +11,21 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks 
 //= require jquery_ujs
-//= require turbolinks
 //= require bootstrap-sprockets
+//= require turbolinks
 //= require_tree .
+
+$(function(){
+    $('.check:button').click(function(){
+          var checked = !$(this).data('checked');
+          $('input:checkbox').prop('checked', checked);
+          $(this).html(checked ? 'Odznacz wszystkie' : 'Zaznacz wszystkie' )
+          $(this).data('checked', checked);
+    });
+})
+
 
 $(function() {
     var flashCallback;
@@ -28,3 +39,4 @@ $(function() {
     })(this));
     return setTimeout(flashCallback, 5000);
 });
+

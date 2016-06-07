@@ -24,26 +24,6 @@ ActiveRecord::Schema.define(version: 20160604142256) do
     t.string   "last_name"
   end
 
-  create_table "post_attachments", force: :cascade do |t|
-    t.integer  "post_id"
-    t.string   "multiread"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "posts", force: :cascade do |t|
-    t.string   "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "resumes", force: :cascade do |t|
-    t.string   "name"
-    t.string   "attachment"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "samples", force: :cascade do |t|
     t.integer  "time"
     t.integer  "ax"

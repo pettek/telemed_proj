@@ -1,19 +1,89 @@
+<% provide(:title, 'Dodaj badanie') %>
+
 <div class="container">
   <h1>Dodaj badanie</h1>
   <div class="row row-content">
-    <%= form_for @exam, html: { multipart: true }, url: {action: "create"} do |f| %>
-        <div class="col-xs-12 col-sm-12 col-md-3">
-            <div class="form container-fluid">
-                <label><%= f.label :attachment %></label>
-                <p><%= f.file_field :attachment, multiple: true %></p>
-                <p><%= f.submit "Zapisz", class: "btn btn-col btn-block btn-steel-blue" %></p>
-                <p style="margin-left: 0px; margin-top: 20px;"><%= link_to 'Back', {:action => 'list'} %></p>  
-            </div>
-        </div>
-    <% end %>    
+    <div class="col-sm-8 col-sm-offset-2">
+      <%= form_for @exam, html: { multipart: true }, url: {action: "create"} do |f| %>
+          <br>
+          <p><%= f.file_field :attachment, accept: ".TXT", required: true, multiple: true %></p>
+          <output id="fileList"></output><hr>
+          <div class="col-sm-6 col-sm-offset-3">
+            <p><%= f.submit "Zapisz", id: "form-submit", class: "btn btn-col btn-block btn-steel-blue" %></p>
+          </div>
+      <% end %>
+    </div>
   </div>
 </div>
+<p style="margin-left: 0px; margin-top: 20px;"><%= link_to 'Back', {:action => 'list'} %></p>
 
+<script>
 
+  var formButton = document.getElementById("form-submit");
+  var headerLength = 4;
 
- 
+  function handleFileSelect(evt) {
+
+    var files = evt.target.files; // files is a FileList of File objects
+    var output = [];
+
+    document.getElementById('fileList').innerHTML = ''; // clear when file upload was cancelled
+
+    for (var i = 0, f; f = files[i]; i++) {
+
+      var errorCounter = 0;
+      var reader = new FileReader();
+      var fileBegining = "";
+      var headerString = "";
+
+      reader.onload = (function(theFile) {
+        return function(e) {
+          fileBegining = e.target.result;
+          headerString = fileBegining.substring(0, fileBegining.indexOf("\n"));
+
+          if (headerString.split(",").length == headerLength) {
+            output.push(
+                '<li>',
+                '<strong>', theFile.name, '</strong>  - ' + headerString,
+                '</li>');
+            document.getElementById('fileList').innerHTML = '<ul>' + output.join('') + '</ul>';
+          } else {
+            errorCounter++;
+            output.push(
+                "<li class='text-danger'>",
+                '<strong>', theFile.name, '</strong>  - ' + 'plik zawiera nieprawidłowy format danych',
+                '</li>');
+            document.getElementById('fileList').innerHTML = '<ul>' + output.join('') + '</ul>';
+          }
+
+          if (errorCounter){
+            formButton.disabled = true;
+            formButton.value = "Zapis niemożliwy";
+            formButton.classList.remove("btn-steel-blue");
+            formButton.classList.add("btn-danger");
+          }
+          else {
+            formButton.disabled = false;
+            formButton.value = "Zapisz";
+            formButton.classList.remove("btn-danger");
+            formButton.classList.add("btn-steel-blue");
+          }
+        };
+      })(f);
+
+      // Read first 50 bytes
+      var blob = f.slice(0, 50);
+      reader.readAsText(blob);
+    }
+  }
+
+  function handleDragOver(evt) {
+    evt.stopPropagation();
+    evt.preventDefault();
+  }
+
+  window.addEventListener('dragover', handleDragOver, false);
+  window.addEventListener('drop', handleDragOver, false);
+  document.getElementById('new_exam').addEventListener('change',handleFileSelect,false);
+
+</script>

@@ -1,24 +1,24 @@
 <h1>Przegląd badań</h1>
-
-<%= form_tag('/show_all', method: 'get') do %>
+<div class="well well-sm">
+<%= form_tag('/show_all', method: 'get', class: 'form-inline') do %>
       <%= fields_for :filter do  |ff| %>
-
-        <%= ff.label :patient, "ID Pacjenta " %>
+        <div class="form-group">
+        <%= ff.label :patient, "ID Pacjenta" %>
         <%= ff.text_field :patient %>
-
-        <%= ff.label :activity, "Badanie " %>
+        </div><div class="form-group">
+        <%= ff.label :activity, "Badanie" %>
         <%= ff.text_field :activity %>
-
+        </div><div class="form-group">
         <%= ff.label :first_name, "Imię" %>
         <%= ff.text_field :first_name %>
-
+        </div><div class="form-group">
         <%= ff.label :last_name, "Nazwisko " %>
         <%= ff.text_field :last_name %>
-
+        </div>
       <% end %>
       <%= submit_tag "Filtruj", class: "btn btn-primary" %>
     <%end%> 
-<br><br>
+</div>
 <% if @exams.blank? %>
     <p>W bazie danych nie ma żadnego rekordu.</p>
     <p><%= link_to "Dodaj nowe badanie", {:action => 'new' }%></p>
@@ -26,7 +26,7 @@
 <% else %>
    
     
-
+    <%= button_tag "Zaznacz wszystkie", class: "btn btn-default check" %>
     <%= form_tag(action: "delete") do %>
 
       <table class="table table-hover" id="exams">
@@ -55,6 +55,7 @@
               <td><%= c.created_at %></td>
               <td><%= link_to "Wyświetl", {:action => 'show', :id => c.id} %></td>
               <td><%= link_to "Edytuj", {:action => 'edit', :id => c.id} %></td>
+              <td><%= link_to "Pobierz", exams_csv_export_path(format: "csv", :id => c.id) %></td>
             </tr>
          <% end %>
 
@@ -62,7 +63,8 @@
 
       </table>
 
-      <%= submit_tag "Usuń zaznaczone" %>
+      <%= submit_tag "Usuń zaznaczone", class: "btn btn-danger", data: { confirm: "Operacja jest nieodwracalna. Kontynuować?" } %>
     <% end %>
+
 
 <% end %>
