@@ -1,24 +1,39 @@
 <h1>Przegląd badań</h1>
-<div class="well well-sm">
-<%= form_tag('/show_all', method: 'get', class: 'form-inline') do %>
-      <%= fields_for :filter do  |ff| %>
-        <div class="form-group">
-        <%= ff.label :patient, "ID Pacjenta" %>
-        <%= ff.text_field :patient %>
-        </div><div class="form-group">
-        <%= ff.label :activity, "Badanie" %>
-        <%= ff.text_field :activity %>
-        </div><div class="form-group">
-        <%= ff.label :first_name, "Imię" %>
-        <%= ff.text_field :first_name %>
-        </div><div class="form-group">
-        <%= ff.label :last_name, "Nazwisko " %>
-        <%= ff.text_field :last_name %>
-        </div>
-      <% end %>
-      <%= submit_tag "Filtruj", class: "btn btn-primary" %>
-    <%end%> 
-</div>
+<div class="container list">
+
+      <!--<div class="well well-lg">-->
+      <div class="row">
+      <%= form_tag('/show_all', method: 'get', class: 'form-inline') do %>
+            <%= fields_for :filter do  |ff| %>
+            <div class="col-xs-6 col-sm-6 col-md-3">
+              <div class="form-group">
+              <%= ff.label :patient, "ID Pacjenta" %><br>
+              <%= ff.text_field :patient %>
+              </div></div>
+              <div class="col-xs-6 col-sm-6 col-md-3">
+              <div class="form-group">
+              <%= ff.label :activity, "Badanie" %><br>
+              <%= ff.text_field :activity %>
+              </div></div>
+              <div class="col-xs-6 col-sm-6 col-md-3">
+              <div class="form-group">
+              <%= ff.label :first_name, "Imię" %><br>
+              <%= ff.text_field :first_name %>
+              </div></div>
+              <div class="col-xs-6 col-sm-6 col-md-3">
+              <div class="form-group">
+              <%= ff.label :last_name, "Nazwisko " %><br>
+              <%= ff.text_field :last_name %>
+              </div></div>
+            
+            <% end %>
+            <div class="col-xs-3">
+            <%= submit_tag "Filtruj", class: "btn btn-primary" %></div>
+          <%end%> 
+     
+    </div>
+
+</div> 
 <% if @exams.blank? %>
     <p>W bazie danych nie ma żadnego rekordu.</p>
     <p><%= link_to "Dodaj nowe badanie", {:action => 'new' }%></p>
