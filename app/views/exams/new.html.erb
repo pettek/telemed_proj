@@ -17,10 +17,52 @@
 </div>
 <p style="margin-left: 0px; margin-top: 20px;"><%= link_to 'Back', {:action => 'list'} %></p>
 
+
+<!-- Modal -->
+<div class="modal" id="modal" <% if params[:error] == "true" %> style="display:block" <% end %> >
+  <div id="loaderDiv">
+    <div id="loading" <% if params[:error] == "true" %> class="hidden" <% end %> >
+      <h1>Trwa wysyłanie plików</h1>
+      <h4>Prosimy o zachowanie cierpliwości...</h4>
+      <div id="animation">
+        <div id="box"></div>
+        <div id="hill"></div>
+      </div>
+    </div>
+    <div>
+      <div id="failure" <% if params[:error] != "true" %> class="hidden" <% end %> >
+        <h1>Niepowodzenie!</h1>
+        <h4>Sprawdź czy pliki zawierają poprawny format danych oraz czy masz połączenie z Internetem.</h4><br>
+        <div class="col-sm-6 col-sm-offset-3">
+          <input type="button" id="failure-btn"class="btn btn-col btn-block btn-steel-blue" value="Powrót do menu">
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
 <script>
 
   var formButton = document.getElementById("form-submit");
   var headerLength = 4;
+
+  var modalDiv = document.getElementById("modal");
+  var btnFailure = document.getElementById("failure-btn");
+
+  var modalLoading = document.getElementById("loading");
+  var modalFailure = document.getElementById("failure");
+
+  document.getElementById("new_exam").addEventListener('submit',function(event){
+    modalDiv.style.display="block";
+  });
+
+  btnFailure.addEventListener('click', function(event){
+    modalDiv.style.display="none";
+    modalFailure.classList.add("hidden");
+    modalLoading.classList.remove("hidden");
+  })
 
   function handleFileSelect(evt) {
 
@@ -28,6 +70,7 @@
     var output = [];
 
     document.getElementById('fileList').innerHTML = ''; // clear when file upload was cancelled
+    enableFormButton(false);
 
     for (var i = 0, f; f = files[i]; i++) {
 
@@ -51,22 +94,16 @@
             errorCounter++;
             output.push(
                 "<li class='text-danger'>",
-                '<strong>', theFile.name, '</strong>  - ' + 'plik zawiera nieprawidłowy format danych',
+                '<strong>', theFile.name, '</strong>  - ' + 'plik zawiera nieprawidłowy format nagłówka',
                 '</li>');
             document.getElementById('fileList').innerHTML = '<ul>' + output.join('') + '</ul>';
           }
 
           if (errorCounter){
-            formButton.disabled = true;
-            formButton.value = "Zapis niemożliwy";
-            formButton.classList.remove("btn-steel-blue");
-            formButton.classList.add("btn-danger");
+            enableFormButton(false);
           }
           else {
-            formButton.disabled = false;
-            formButton.value = "Zapisz";
-            formButton.classList.remove("btn-danger");
-            formButton.classList.add("btn-steel-blue");
+            enableFormButton(true);
           }
         };
       })(f);
@@ -74,6 +111,21 @@
       // Read first 50 bytes
       var blob = f.slice(0, 50);
       reader.readAsText(blob);
+    }
+  }
+
+  function enableFormButton(actionBool){
+    if(actionBool){
+      formButton.disabled = false;
+      formButton.value = "Wyślij plik";
+      formButton.classList.remove("btn-danger");
+      formButton.classList.add("btn-steel-blue");
+    }
+    else {
+      formButton.disabled = true;
+      formButton.value = "Błąd danych wejściowych";
+      formButton.classList.remove("btn-steel-blue");
+      formButton.classList.add("btn-danger");
     }
   }
 
