@@ -40,6 +40,7 @@ class ExamsController < ApplicationController
             Exam.last.destroy
          end
       rescue
+         Exam.last.destroy
          redirect_to :action => 'new', :error => 'true'
       end
    end

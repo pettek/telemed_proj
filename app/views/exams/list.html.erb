@@ -28,20 +28,22 @@
             
             <% end %>
             <div class="col-xs-4 col-sm-3">
-            <%= submit_tag "Filtruj", class: "btn btn-primary" %></div>
+            <%= submit_tag "Filtruj", class: "btn btn-steel-blue" %></div>
           <%end%> 
      
     </div>
-
-
+</div>
+<br>
+<div class="container-fluid">
 <% if @exams.blank? %>
     <p>W bazie danych nie ma żadnego rekordu.</p>
     <p><%= link_to "Dodaj nowe badanie", {:action => 'new' }%></p>
 
 <% else %>
-   
-    
-    <%= button_tag "Zaznacz wszystkie", class: "btn btn-default check" %>
+      <div class="col-sm-5">
+        <%= button_tag "Zaznacz wszystkie", class: "btn btn-default check" %>
+      </div>
+
     <%= form_tag(action: "delete") do %>
 
       <table class="table table-hover" id="exams">
@@ -54,6 +56,8 @@
             <th>Imię</th>
             <th>Nazwisko</th>
             <th>Data wysłania pliku</th>
+            <th></th>
+            <th></th>
             <th></th>
           </tr>
         </thead>
@@ -78,7 +82,10 @@
 
       </table>
 
-      <%= submit_tag "Usuń zaznaczone", class: "btn btn-danger", data: { confirm: "Operacja jest nieodwracalna. Kontynuować?" } %>
+          <div class="col-sm-5">
+
+            <%= submit_tag "Usuń zaznaczone", class: "btn btn-danger", data: { confirm: "Operacja jest nieodwracalna. Kontynuować?" } %>
+          </div>
     <% end %>
 
 
