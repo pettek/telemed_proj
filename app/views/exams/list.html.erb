@@ -1,39 +1,39 @@
-<h1>Przegląd badań</h1>
-<div class="container list">
+<h1 style="margin-top: 40px;">Przegląd badań</h1>
+<div class="container-fluid list">
 
       <!--<div class="well well-lg">-->
-      <div class="row">
+      <div class="row" id="well-styled" style="margin: 15px 0px;">
       <%= form_tag('/show_all', method: 'get', class: 'form-inline') do %>
             <%= fields_for :filter do  |ff| %>
             <div class="col-xs-6 col-sm-6 col-md-3">
-              <div class="form-group">
+              <div class="form-group" align="center">
               <%= ff.label :patient, "ID Pacjenta" %><br>
               <%= ff.text_field :patient %>
               </div></div>
               <div class="col-xs-6 col-sm-6 col-md-3">
-              <div class="form-group">
+              <div class="form-group" align="center">
               <%= ff.label :activity, "Badanie" %><br>
               <%= ff.text_field :activity %>
               </div></div>
               <div class="col-xs-6 col-sm-6 col-md-3">
-              <div class="form-group">
+              <div class="form-group" align="center">
               <%= ff.label :first_name, "Imię" %><br>
               <%= ff.text_field :first_name %>
               </div></div>
               <div class="col-xs-6 col-sm-6 col-md-3">
-              <div class="form-group">
+              <div class="form-group" align="center">
               <%= ff.label :last_name, "Nazwisko " %><br>
               <%= ff.text_field :last_name %>
               </div></div>
             
             <% end %>
-            <div class="col-xs-3">
+            <div class="col-xs-4 col-sm-3">
             <%= submit_tag "Filtruj", class: "btn btn-primary" %></div>
           <%end%> 
      
     </div>
 
-</div> 
+
 <% if @exams.blank? %>
     <p>W bazie danych nie ma żadnego rekordu.</p>
     <p><%= link_to "Dodaj nowe badanie", {:action => 'new' }%></p>
@@ -83,3 +83,5 @@
 
 
 <% end %>
+
+</div> 
