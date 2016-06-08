@@ -1,0 +1,87 @@
+<h1 style="margin-top: 40px;">Przegląd badań</h1>
+<div class="container-fluid list">
+
+      <!--<div class="well well-lg">-->
+      <div class="row" id="well-styled" style="margin: 15px 0px;">
+      <%= form_tag('/show_all', method: 'get', class: 'form-inline') do %>
+            <%= fields_for :filter do  |ff| %>
+            <div class="col-xs-6 col-sm-6 col-md-3">
+              <div class="form-group" align="center">
+              <%= ff.label :patient, "ID Pacjenta" %><br>
+              <%= ff.text_field :patient %>
+              </div></div>
+              <div class="col-xs-6 col-sm-6 col-md-3">
+              <div class="form-group" align="center">
+              <%= ff.label :activity, "Badanie" %><br>
+              <%= ff.text_field :activity %>
+              </div></div>
+              <div class="col-xs-6 col-sm-6 col-md-3">
+              <div class="form-group" align="center">
+              <%= ff.label :first_name, "Imię" %><br>
+              <%= ff.text_field :first_name %>
+              </div></div>
+              <div class="col-xs-6 col-sm-6 col-md-3">
+              <div class="form-group" align="center">
+              <%= ff.label :last_name, "Nazwisko " %><br>
+              <%= ff.text_field :last_name %>
+              </div></div>
+            
+            <% end %>
+            <div class="col-xs-4 col-sm-3">
+            <%= submit_tag "Filtruj", class: "btn btn-primary" %></div>
+          <%end%> 
+     
+    </div>
+
+
+<% if @exams.blank? %>
+    <p>W bazie danych nie ma żadnego rekordu.</p>
+    <p><%= link_to "Dodaj nowe badanie", {:action => 'new' }%></p>
+
+<% else %>
+   
+    
+    <%= button_tag "Zaznacz wszystkie", class: "btn btn-default check" %>
+    <%= form_tag(action: "delete") do %>
+
+      <table class="table table-hover" id="exams">
+
+        <thead>
+          <tr>
+            <th></th>
+            <th>ID pacjenta</th>
+            <th>ID badania</th>
+            <th>Imię</th>
+            <th>Nazwisko</th>
+            <th>Data wysłania pliku</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+         <% @exams.each do |c| %>
+            <tr>
+              <td><%= check_box_tag "deleteRecord[]", c.id%></td>
+              <td><%= c.patient %></td>
+              <td><%= c.activity %></td>
+              <td><%= c.first_name %></td>
+              <td><%= c.last_name %></td>
+              <td><%= c.created_at %></td>
+              <td><%= link_to "Wyświetl", {:action => 'show', :id => c.id} %></td>
+              <td><%= link_to "Edytuj", {:action => 'edit', :id => c.id} %></td>
+              <td><%= link_to "Pobierz", exams_csv_export_path(format: "csv", :id => c.id) %></td>
+            </tr>
+         <% end %>
+
+         </tbody>
+
+      </table>
+
+      <%= submit_tag "Usuń zaznaczone", class: "btn btn-danger", data: { confirm: "Operacja jest nieodwracalna. Kontynuować?" } %>
+    <% end %>
+
+
+<% end %>
+
+</div> 
