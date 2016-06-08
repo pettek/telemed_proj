@@ -26,19 +26,21 @@ class ExamsController < ApplicationController
       @exam = Exam.new(exam_params)
       start_time = Time.now
 
-      if @exam.save
+      begin
+         if @exam.save
 
-         params[:exam][:attachment].each do |attachment|
-            filepath = attachment.tempfile.path            
-            @exam.import_samples(filepath)
-            @exam = Exam.create
+            params[:exam][:attachment].each do |attachment|
+               filepath = attachment.tempfile.path
+               @exam.import_samples(filepath)
+               @exam = Exam.create
+            end
+            end_time = Time.now
+            flash[:success] = "Czas zapisu w sekundach: " + (end_time - start_time).to_s
+            redirect_to :action => 'list'
+            Exam.last.destroy
          end
-         end_time = Time.now
-         flash[:success] = "Czas zapisu w sekundach: " + (end_time - start_time).to_s
-         redirect_to :action => 'list'
-         Exam.last.destroy
-      else
-         render :action => 'new'
+      rescue
+         redirect_to :action => 'new', :error => 'true'
       end
    end
    
