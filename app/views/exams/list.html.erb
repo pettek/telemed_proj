@@ -1,3 +1,5 @@
+<% provide(:title, 'Baza badań') %>
+
 <h1 style="margin-top: 40px;">Przegląd badań</h1>
 <div class="container-fluid list">
 
@@ -28,20 +30,22 @@
             
             <% end %>
             <div class="col-xs-4 col-sm-3">
-            <%= submit_tag "Filtruj", class: "btn btn-primary" %></div>
+            <%= submit_tag "Filtruj", class: "btn btn-steel-blue" %></div>
           <%end%> 
      
     </div>
-
-
+</div>
+<br>
+<div class="container-fluid">
 <% if @exams.blank? %>
     <p>W bazie danych nie ma żadnego rekordu.</p>
     <p><%= link_to "Dodaj nowe badanie", {:action => 'new' }%></p>
 
 <% else %>
-   
-    
-    <%= button_tag "Zaznacz wszystkie", class: "btn btn-default check" %>
+      <div class="col-sm-5">
+        <%= button_tag "Zaznacz wszystkie", class: "btn btn-default check" %>
+      </div>
+
     <%= form_tag(action: "delete") do %>
 
       <table class="table table-hover" id="exams">
@@ -54,6 +58,9 @@
             <th>Imię</th>
             <th>Nazwisko</th>
             <th>Data wysłania pliku</th>
+            <th>Ilość próbek</th>
+            <th></th>
+            <th></th>
             <th></th>
           </tr>
         </thead>
@@ -68,17 +75,23 @@
               <td><%= c.first_name %></td>
               <td><%= c.last_name %></td>
               <td><%= c.created_at %></td>
+              <td><%= Sample.where("exam_id ="+c.id.to_s).count %></td>
               <td><%= link_to "Wyświetl", {:action => 'show', :id => c.id} %></td>
               <td><%= link_to "Edytuj", {:action => 'edit', :id => c.id} %></td>
               <td><%= link_to "Pobierz", exams_csv_export_path(format: "csv", :id => c.id) %></td>
             </tr>
          <% end %>
+         <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+         <tr><td></td><td></td><td></td><td></td><td></td><td><b>Ilość próbek w bazie</b></td><td><%= Sample.count %></td><td></td><td></td><td></td></tr>
 
          </tbody>
 
       </table>
 
-      <%= submit_tag "Usuń zaznaczone", class: "btn btn-danger", data: { confirm: "Operacja jest nieodwracalna. Kontynuować?" } %>
+          <div class="col-sm-5">
+
+            <%= submit_tag "Usuń zaznaczone", class: "btn btn-danger", data: { confirm: "Operacja jest nieodwracalna. Kontynuować?" } %>
+          </div>
     <% end %>
 
 
