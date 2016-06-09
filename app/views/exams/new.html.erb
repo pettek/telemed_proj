@@ -33,9 +33,13 @@
       <div id="failure" <% if params[:error] != "true" %> class="hidden" <% end %> >
         <h1>Wystąpił błąd!</h1>
         <h4>Sprawdź czy pliki zawierają poprawny format danych oraz czy masz połączenie z Internetem.</h4><br>
-        <div class="col-sm-6 col-sm-offset-3">
-          <input type="button" id="failure-btn"class="btn btn-col btn-block btn-steel-blue" value="Powrót do menu">
-          <p><%= link_to 'Back', {:action => 'list'} %></p>
+        <div class="row">
+          <div class="col-sm-6">
+            <input type="button" id="failure-btn" class="btn btn-col btn-block btn-steel-blue" value="Powrót do menu"><br>
+          </div>
+          <div class="col-sm-6">
+            <%= button_to "Przejdź do helpdeska", help_path, :class => "btn btn-col btn-block btn-steel-blue", :method => :get %>
+          </div>
         </div>
       </div>
     </div>
