@@ -24,6 +24,7 @@ class ExamsController < ApplicationController
 
    def create
       @exam = Exam.new(exam_params)
+      idArray = Array.new
       start_time = Time.now
 
       begin
@@ -31,6 +32,7 @@ class ExamsController < ApplicationController
 
             params[:exam][:attachment].each do |attachment|
                filepath = attachment.tempfile.path
+               idArray.push(@exam.id)
                @exam.import_samples(filepath)
                @exam = Exam.create
             end
@@ -40,7 +42,11 @@ class ExamsController < ApplicationController
             Exam.last.destroy
          end
       rescue
-         Exam.last.destroy
+         idArray.each do |id|
+            exam = Exam.find(id)
+            exam.samples.delete_all
+            exam.destroy
+         end
          redirect_to :action => 'new', :error => 'true'
       end
    end
@@ -86,5 +92,6 @@ class ExamsController < ApplicationController
          format.html
          format.csv { send_data @out.to_csv, filename: "examout-#{Date.today}.csv" }
        end
-    end
+   end
+
 end

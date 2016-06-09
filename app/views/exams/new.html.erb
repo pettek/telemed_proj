@@ -31,10 +31,15 @@
     </div>
     <div>
       <div id="failure" <% if params[:error] != "true" %> class="hidden" <% end %> >
-        <h1>Niepowodzenie!</h1>
+        <h1>Wystąpił błąd!</h1>
         <h4>Sprawdź czy pliki zawierają poprawny format danych oraz czy masz połączenie z Internetem.</h4><br>
-        <div class="col-sm-6 col-sm-offset-3">
-          <input type="button" id="failure-btn"class="btn btn-col btn-block btn-steel-blue" value="Powrót do menu">
+        <div class="row">
+          <div class="col-sm-6">
+            <input type="button" id="failure-btn" class="btn btn-col btn-block btn-steel-blue" value="Powrót do menu"><br>
+          </div>
+          <div class="col-sm-6">
+            <%= button_to "Przejdź do helpdeska", help_path, :class => "btn btn-col btn-block btn-steel-blue", :method => :get %>
+          </div>
         </div>
       </div>
     </div>
@@ -70,7 +75,7 @@
     var output = [];
 
     document.getElementById('fileList').innerHTML = ''; // clear when file upload was cancelled
-    enableFormButton(false);
+    enableFormButton('reset');
 
     for (var i = 0, f; f = files[i]; i++) {
 
@@ -100,10 +105,10 @@
           }
 
           if (errorCounter){
-            enableFormButton(false);
+            enableFormButton('error');
           }
           else {
-            enableFormButton(true);
+            enableFormButton('ok');
           }
         };
       })(f);
@@ -114,18 +119,25 @@
     }
   }
 
-  function enableFormButton(actionBool){
-    if(actionBool){
-      formButton.disabled = false;
-      formButton.value = "Wyślij plik";
-      formButton.classList.remove("btn-danger");
-      formButton.classList.add("btn-steel-blue");
-    }
-    else {
-      formButton.disabled = true;
-      formButton.value = "Błąd danych wejściowych";
-      formButton.classList.remove("btn-steel-blue");
-      formButton.classList.add("btn-danger");
+  function enableFormButton(actionString){
+    switch(actionString){
+      case 'ok':
+        formButton.disabled = false;
+        formButton.value = "Wyślij plik";
+        formButton.classList.remove("btn-danger");
+        formButton.classList.add("btn-steel-blue");
+        break;
+      case 'error':
+        formButton.disabled = true;
+        formButton.value = "Nieprawidłowy plik";
+        formButton.classList.remove("btn-steel-blue");
+        formButton.classList.add("btn-danger");
+        break;
+      case 'reset':
+        formButton.disabled = true;
+        formButton.value = "Proszę wybrać plik";
+        formButton.classList.add("btn-steel-blue");
+        break;
     }
   }
 
