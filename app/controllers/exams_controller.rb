@@ -86,7 +86,7 @@ class ExamsController < ApplicationController
             Zip::File.open(temp_file.path, Zip::File::CREATE) do |zip|
                params[:deleteRecord].each do |id|
                   out = Exam.find(id)
-                  zip.add("exam_#{id}", out.to_csv)
+                  zip.add("exam_#{id}.csv", out.to_csv)
                end    
 
             end
