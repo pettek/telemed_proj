@@ -1,4 +1,19 @@
 <% provide(:title, 'Pomoc') %>
 
 <h1>HELP DESK</h1>
-<p>Jeśli masz problem z aplikacją, to znaczy, że źle jej używasz i powinieneś zająć się czymś innym</p>
+
+<div class="container-fluid">
+  <h2>Dodawanie pliku do bazy</h2>
+  <p>Poniżej zamieszczono przykładowy fragment prawidłowo sformatowanego pliku, który może zostać zamieszczony w bazie danych.</p><br>
+  <div class="col-md-4 col-md-offset-1">
+    <p style="text-align: center;"><img src = "<%= asset_path( 'data_example.jpg' ) %>" class="img"></p><br>
+  </div>
+  <div class="col-md-5 helpDesk">
+    <ul>
+      <li>w pierwszej linii pliku znajduje się <b>nagłówek</b> zawierający informacje nt (kolejno): <br><pre>ID pacjenta, ID badania, imię, nazwisko pacjenta</pre></li>
+      <li>elementy nagłówka pliku <b>oddzielone są od siebie przecinkiem</b></li>
+      <li>w drugiej linijce mieści się <b>nagłówek tabeli</b>: <br><pre>"CZAS   aX   aY   aZ"</pre></li>
+      <li>w pozostałych linijkach umieszczone są <b>dane pomiarowe oddzielone przecinkiem lub tabulatorem</b></li>
+    </ul>
+  </div>
+</div>
