@@ -77,7 +77,7 @@ class ExamsController < ApplicationController
          if params[:download]
 
             # prepare zip file
-            filename="exams_#{Date.today}"
+            filename="exams_#{Date.today}.zip"
             temp_file = Tempfile.new(filename)
 
             Zip::OutputStream.open(temp_file) { |zos| }
@@ -86,7 +86,7 @@ class ExamsController < ApplicationController
             Zip::File.open(temp_file.path, Zip::File::CREATE) do |zip|
                params[:deleteRecord].each do |id|
                   out = Exam.find(id)
-                  puts out.to_csv
+                  zip.add("exam_#{id}", out.to_csv)
                end    
 
             end

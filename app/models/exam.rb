@@ -30,11 +30,14 @@ class Exam < ActiveRecord::Base
   end
 
   def to_csv
-    CSV.generate(headers: true) do |csv|
+    filename = "exam_#{id}.csv"
+    CSV.open(filename, 'wb') do |csv|
       samples.each do |sample|
         csv << [sample.time, sample.ax, sample.ay, sample.az]
       end
     end
+
+    filename
   end
 
 
