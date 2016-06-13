@@ -1,3 +1,6 @@
+require 'csv'
+require 'zip'
+
 class Exam < ActiveRecord::Base
 	has_many :samples, dependent: :destroy
 	def import_samples(filename)

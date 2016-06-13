@@ -69,29 +69,58 @@ class ExamsController < ApplicationController
       end
    end
    
+   require 'csv'
+
    def delete
       start_time = Time.now
       if params[:deleteRecord].present?
-         params[:deleteRecord].each do |id|
-            exam = Exam.find(id)
-            exam.samples.delete_all
-            exam.destroy
+         if params[:download]
+
+            # prepare zip file
+            filename="exams_#{Date.today}"
+            temp_file = Tempfile.new(filename)
+
+            Zip::OutputStream.open(temp_file) { |zos| }
+
+            # add files to zip
+            Zip::File.open(temp_file.path, Zip::File::CREATE) do |zip|
+               params[:deleteRecord].each do |id|
+                  out = Exam.find(id)
+                  puts out.to_csv
+               end    
+
+            end
+
+            # send to user
+            # send_data ten_twoj_zip, filename: "examsout-#{Exam.id}.csv"
+            zip_data = File.read(temp_file.path)
+            send_data(zip_data, :type => 'application/zip', :filename => filename)
+
+         else
+            params[:deleteRecord].each do |id|
+               exam = Exam.find(id)
+               exam.samples.delete_all
+               exam.destroy
+         
+               end_time = Time.now
+               flash[:success] = "Czas usunięcia w sekundach: " + (end_time - start_time).to_s
+               redirect_to :action => 'list'
+            end
          end
       end
-      end_time = Time.now
-      flash[:success] = "Czas usunięcia w sekundach: " + (end_time - start_time).to_s
-      redirect_to :action => 'list'
    end
-
-   require 'csv'
-
-   def csv_export
-      @out = Exam.find(params[:id])
-
-       respond_to do |format|
-         format.html
-         format.csv { send_data @out.to_csv, filename: "examout-#{Date.today}.csv" }
-       end
-   end
-
 end
+   
+
+   # def csv_export
+
+   #    if params[:deleteRecord].present?
+   #       params[:deleteRecord].each do |id|
+   #          out = Exam.find(id)
+   #          respond_to do |format|
+   #             format.html
+   #             format.csv { send_data out.to_csv, filename: "examout-#{Date.today}.csv" }
+   #          end
+   #       end
+   #    end
+   # end
