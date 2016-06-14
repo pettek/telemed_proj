@@ -36,66 +36,71 @@
     </div>
 </div>
 <br>
-<div class="container-fluid">
-<% if @exams.blank? %>
-    <p>W bazie danych nie ma żadnego rekordu.</p>
-    <p><%= link_to "Dodaj nowe badanie", {:action => 'new' }%></p>
+<div class="container-fluid list">
+  <div class="row buttons" style="margin: 15px 0px;">
+  <% if @exams.blank? %>
+      <p>W bazie danych nie ma żadnego rekordu.</p>
+      <p><%= link_to "Dodaj nowe badanie", {:action => 'new' }%></p>
 
-<% else %>
-      <div class="col-sm-5">
-        <%= button_tag "Zaznacz wszystkie", class: "btn btn-default check" %>
+  <% else %>
+        <div class="col-xs-6 col-sm-5 col-md-4 col-lg-3">
+          <%= button_tag "Zaznacz wszystkie", class: "btn btn-steel-blue" %>
+        </div>
       </div>
+      <div class="row" style="margin: 15px 0px;">
+      <%= form_tag(action: "delete") do %>
+        <div class="col-xs-12">
+          <table class="table table-hover" id="exams">
 
-    <%= form_tag(action: "delete") do %>
+            <thead>
+              <tr>
+                <th></th>
+                <th>ID pacjenta</th>
+                <th>ID badania</th>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>Data wysłania pliku</th>
+                <th>Ilość próbek</th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
 
-      <table class="table table-hover" id="exams">
+            <tbody>
 
-        <thead>
-          <tr>
-            <th></th>
-            <th>ID pacjenta</th>
-            <th>ID badania</th>
-            <th>Imię</th>
-            <th>Nazwisko</th>
-            <th>Data wysłania pliku</th>
-            <th>Ilość próbek</th>
-            <th></th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
+             <% @exams.each do |c| %>
+                <tr>
+                  <td><%= check_box_tag "deleteRecord[]", c.id%></td>
+                  <td><%= c.patient %></td>
+                  <td><%= ExamsController::BADANIA[c.activity]%></td>
+                  <td><%= c.first_name %></td>
+                  <td><%= c.last_name %></td>
+                  <td><%= c.created_at %></td>
+                  <td><%= Sample.where("exam_id ="+c.id.to_s).count %></td>
+                  <td><%= link_to "Wyświetl", {:action => 'show', :id => c.id} %></td>
+                  <td><%= link_to "Edytuj", {:action => 'edit', :id => c.id} %></td>
+                  
+                </tr>
+             <% end %>
+             <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+             <tr><td></td><td></td><td></td><td></td><td></td><td><b>Ilość próbek w bazie</b></td><td><%= Sample.count %></td><td></td><td></td><td></td></tr>
 
-        <tbody>
+             </tbody>
 
-         <% @exams.each do |c| %>
-            <tr>
-              <td><%= check_box_tag "deleteRecord[]", c.id%></td>
-              <td><%= c.patient %></td>
-              <td><%= ExamsController::BADANIA[c.activity]%></td>
-              <td><%= c.first_name %></td>
-              <td><%= c.last_name %></td>
-              <td><%= c.created_at %></td>
-              <td><%= Sample.where("exam_id ="+c.id.to_s).count %></td>
-              <td><%= link_to "Wyświetl", {:action => 'show', :id => c.id} %></td>
-              <td><%= link_to "Edytuj", {:action => 'edit', :id => c.id} %></td>
-              
-            </tr>
-         <% end %>
-         <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-         <tr><td></td><td></td><td></td><td></td><td></td><td><b>Ilość próbek w bazie</b></td><td><%= Sample.count %></td><td></td><td></td><td></td></tr>
-
-         </tbody>
-
-      </table>
-
-          <div class="col-sm-5">
-
-            <%= submit_tag "Usuń zaznaczone", class: "btn btn-danger", data: { confirm: "Operacja jest nieodwracalna. Kontynuować?" } %>
-            <%= submit_tag "Pobierz zaznaczone", class: "btn btn-danger", name: 'download'%>
-          </div>
-    <% end %>
+          </table>
+        </div>
+      </div>
+      <div class="row buttons" style="margin: 15px 0px;">
+            <div class="col-xs-6 col-sm-5 col-md-4 col-lg-3">
+              <%= submit_tag "Usuń zaznaczone", class: "btn btn-steel-blue", data: { confirm: "Operacja jest nieodwracalna. Kontynuować?" } %>
+            </div>
+            <div class="col-xs-6 col-sm-5 col-md-4 col-lg-3">
+              <%= submit_tag "Pobierz zaznaczone", class: "btn btn-steel-blue", name: 'download'%>
+            </div>
+      <% end %>
 
 
-<% end %>
-
+  <% end %>
+  </div>
 </div> 
