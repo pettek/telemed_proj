@@ -15,7 +15,6 @@
     </div>
   </div>
 </div>
-<p style="margin-left: 0px; margin-top: 20px;"><%= link_to 'Back', {:action => 'list'} %></p>
 
 
 <!-- Modal -->
@@ -32,7 +31,7 @@
     <div>
       <div id="failure" <% if params[:error] != "true" %> class="hidden" <% end %> >
         <h1>Wystąpił błąd!</h1>
-        <h4>Sprawdź czy pliki zawierają poprawny format danych oraz czy masz połączenie z Internetem.</h4><br>
+        <h4>Sprawdź czy pliki zawierają poprawny format danych.</h4><br>
         <div class="row">
           <div class="col-sm-6">
             <input type="button" id="failure-btn" class="btn btn-col btn-block btn-steel-blue" value="Powrót do menu"><br>

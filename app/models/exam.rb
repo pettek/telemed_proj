@@ -1,3 +1,6 @@
+require 'csv'
+require 'zip'
+
 class Exam < ActiveRecord::Base
 	has_many :samples, dependent: :destroy
 	def import_samples(filename)
@@ -27,11 +30,14 @@ class Exam < ActiveRecord::Base
   end
 
   def to_csv
-    CSV.generate(headers: true) do |csv|
+    filenamecsv = File.new("tmp/samples_#{Time.now}", 'w+')
+    CSV.open(filenamecsv, 'wb') do |csv|
       samples.each do |sample|
         csv << [sample.time, sample.ax, sample.ay, sample.az]
       end
     end
+
+    filenamecsv
   end
 
 

@@ -3,7 +3,7 @@
 <h1><%= @exam.patient %></h1>
 
 <p>
-   <strong>Act: </strong> <%= @exam.activity %><br />
+   <strong>Act: </strong> <%= ExamsController::BADANIA[@exam.activity] %><br />
    <strong>Sr:</strong> <%= @exam.srate %><br />
    <strong>Date:</strong> <%= @exam.date %><br />
 </p>

@@ -71,14 +71,14 @@
             <tr>
               <td><%= check_box_tag "deleteRecord[]", c.id%></td>
               <td><%= c.patient %></td>
-              <td><%= c.activity %></td>
+              <td><%= ExamsController::BADANIA[c.activity]%></td>
               <td><%= c.first_name %></td>
               <td><%= c.last_name %></td>
               <td><%= c.created_at %></td>
               <td><%= Sample.where("exam_id ="+c.id.to_s).count %></td>
               <td><%= link_to "Wyświetl", {:action => 'show', :id => c.id} %></td>
               <td><%= link_to "Edytuj", {:action => 'edit', :id => c.id} %></td>
-              <td><%= link_to "Pobierz", exams_csv_export_path(format: "csv", :id => c.id) %></td>
+              
             </tr>
          <% end %>
          <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
@@ -91,6 +91,7 @@
           <div class="col-sm-5">
 
             <%= submit_tag "Usuń zaznaczone", class: "btn btn-danger", data: { confirm: "Operacja jest nieodwracalna. Kontynuować?" } %>
+            <%= submit_tag "Pobierz zaznaczone", class: "btn btn-danger", name: 'download'%>
           </div>
     <% end %>
 
