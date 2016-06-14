@@ -30,7 +30,7 @@ class Exam < ActiveRecord::Base
   end
 
   def to_csv
-    filenamecsv = Tempfile.new('samples').path
+    filenamecsv = File.new("tmp/samples_#{Time.now}", 'w+')
     CSV.open(filenamecsv, 'wb') do |csv|
       samples.each do |sample|
         csv << [sample.time, sample.ax, sample.ay, sample.az]
