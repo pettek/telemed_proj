@@ -71,7 +71,7 @@
             <tr>
               <td><%= check_box_tag "deleteRecord[]", c.id%></td>
               <td><%= c.patient %></td>
-              <td><%= c.activity %></td>
+              <td><%= ExamsController::BADANIA[c.activity]%></td>
               <td><%= c.first_name %></td>
               <td><%= c.last_name %></td>
               <td><%= c.created_at %></td>
