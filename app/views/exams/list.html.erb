@@ -36,7 +36,7 @@
     </div>
 </div>
 <br>
-<div class="container-fluid list">
+<div class="container-fluid">
   <div class="row buttons" style="margin: 15px 0px;">
   <% if @exams.blank? %>
       <p>W bazie danych nie ma żadnego rekordu.</p>
@@ -44,7 +44,7 @@
 
   <% else %>
         <div class="col-xs-6 col-sm-5 col-md-4 col-lg-3">
-          <%= button_tag "Zaznacz wszystkie", class: "btn btn-steel-blue" %>
+          <%= button_tag "Zaznacz wszystkie", class: "btn btn-steel-blue check" %>
         </div>
       </div>
       <div class="row" style="margin: 15px 0px;">
@@ -93,10 +93,10 @@
       </div>
       <div class="row buttons" style="margin: 15px 0px;">
             <div class="col-xs-6 col-sm-5 col-md-4 col-lg-3">
-              <%= submit_tag "Usuń zaznaczone", class: "btn btn-steel-blue", data: { confirm: "Operacja jest nieodwracalna. Kontynuować?" } %>
+              <%= submit_tag "Pobierz zaznaczone", class: "btn btn-steel-blue", name: 'download'%>
             </div>
             <div class="col-xs-6 col-sm-5 col-md-4 col-lg-3">
-              <%= submit_tag "Pobierz zaznaczone", class: "btn btn-steel-blue", name: 'download'%>
+              <%= submit_tag "Usuń zaznaczone", class: "btn btn-steel-blue", data: { confirm: "Operacja jest nieodwracalna. Kontynuować?" } %>
             </div>
       <% end %>
 
