@@ -1,11 +1,11 @@
 <% provide(:title, 'Wizualizacja') %>
 
-<h1><%= @exam.patient %></h1>
+<h1>ID pacjenta: <%= @exam.patient %></h1>
 
 <p>
-   <strong>Act: </strong> <%= ExamsController::BADANIA[@exam.activity] %><br />
-   <strong>Sr:</strong> <%= @exam.srate %><br />
-   <strong>Date:</strong> <%= @exam.date %><br />
+   <strong>Rodzaj badania: </strong> <%= ExamsController::BADANIA.invert[@exam.activity] %><br />
+   <strong>Częstotliwość próbkowania:</strong> <%= @exam.srate %><br />
+   <strong>Data umieszczenia rekordu w bazie:</strong> <%= @exam.created_at %><br />
 </p>
 
 <hr />
@@ -191,4 +191,4 @@
 
 </script>
 
-<%= link_to 'Back', {:action => 'list'} %>
+<%= link_to 'Powrót do listy badań', {:action => 'list'} %>

@@ -14,7 +14,7 @@
 		<div class="">
 			<div class="form-group" align="center">
 			<%= f.label :activity, "Badanie" %><br>
-			<%= f.text_field 'activity' %>
+        <%= f.select 'activity', ExamsController::BADANIA, {:include_blank => true} %>
 			</div></div>
 		<div class="">
 			<div class="form-group" align="center">
