@@ -1,7 +1,7 @@
 class ExamsController < ApplicationController
    
-   BADANIA = { 1 => "chodzenie", 2 => "bieganie", 3=> "siedzenie", 4=>"skakanie", 5 => "upadek"}
-
+   BADANIA = { "chodzenie" => 1, "bieganie" => 2, "siedzenie" => 3, "skakanie" => 4, "upadek" => 5}
+ 
    def list
       @exams = Exam.where(filter_params)
    end

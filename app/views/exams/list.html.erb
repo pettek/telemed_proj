@@ -15,7 +15,7 @@
               <div class="col-xs-6 col-sm-6 col-md-3">
               <div class="form-group" align="center">
               <%= ff.label :activity, "Badanie" %><br>
-              <%= ff.text_field :activity %>
+              <%= ff.select :activity, ExamsController::BADANIA, {:include_blank => true}, {prompt: 'Select Person'} %>
               </div></div>
               <div class="col-xs-6 col-sm-6 col-md-3">
               <div class="form-group" align="center">
@@ -73,7 +73,7 @@
                 <tr>
                   <td><%= check_box_tag "deleteRecord[]", c.id%></td>
                   <td><%= c.patient %></td>
-                  <td><%= ExamsController::BADANIA[c.activity]%></td>
+                  <td><%= ExamsController::BADANIA.invert[c.activity]%></td>
                   <td><%= c.first_name %></td>
                   <td><%= c.last_name %></td>
                   <td><%= c.created_at %></td>
