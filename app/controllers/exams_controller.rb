@@ -106,8 +106,8 @@ class ExamsController < ApplicationController
          
                end_time = Time.now
                flash[:success] = "Czas usunięcia w sekundach: " + (end_time - start_time).to_s
-               redirect_to :action => 'list'
             end
+            redirect_to :action => 'list'
          end
       end
    end
