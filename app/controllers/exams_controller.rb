@@ -65,7 +65,7 @@ class ExamsController < ApplicationController
       @exam = Exam.find(params[:id])
       
       if @exam.update_attributes(exam_param)
-         redirect_to :action => 'show', :id => @exam
+         redirect_to :action => 'list'
       else
          render :action => 'edit'
       end
