@@ -122,6 +122,12 @@ p {
   width: 100%;
 }
 
+.list select{
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+}
+
 .list .btn{
   width: 70%;
   padding: 5px 15px;
@@ -157,6 +163,14 @@ p {
 }
 
 .edit input{
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  font-size: 16px;
+  height: auto;
+}
+
+.edit select{
   margin: 0px;
   padding: 0px;
   width: 100%;
